@@ -19,7 +19,7 @@ Transferring BPSEQ format to DCEL by creating the class and running *formTransfe
 ```
 DCELformTransfer DT; 
 DT.formTransfer(fileName);
-``
+```
 
 Build a tree from DCEL by creating the class and running *buildGraph method* and *RUNNING method*.
 ```
