@@ -10,24 +10,28 @@ Input file need be Text Document(.txt).
 
 ## Usage
  - **STEP 1** :
- Open *CanonicalFormComputing.vcxproj* file in folder *CanonicalFormComputing* by **Microsoft Visual Studio**.
+ Open *CanonicalFormComputing.sln* file in folder *CanonicalFormComputing* by **Microsoft Visual Studio**.
  - **STEP 2** :
 You can easily use this program by changing fileName in *CanoicalFormComputing.cpp*.
 > string fileName = "BPSEQexample";
 
 Transferring BPSEQ format to DCEL by creating the class and running *formTransfer method*.
-> DCELformTransfer DT; 
-> DT.formTransfer(fileName);
+```
+DCELformTransfer DT; 
+DT.formTransfer(fileName);
+``
 
 Build a tree from DCEL by creating the class and running *buildGraph method* and *RUNNING method*.
-> PlaneGraph PG; 
-> PG.buildGraph(fileName + "_ver.txt", fileName + "_edge.txt", fileName + "_face.txt"); PG.setOuterFace(fileName +"_outerF.txt"); 
-> PG.RUNNING();
-
+```
+PlaneGraph PG; 
+PG.buildGraph(fileName + "_ver.txt", fileName + "_edge.txt", fileName + "_face.txt"); PG.setOuterFace(fileName +"_outerF.txt"); 
+PG.RUNNING();
+```
 The root can be transferred to multiple.
-> rootTrans RT; 
-> RT.running(fileName);
-
+```
+rootTrans RT; 
+RT.running(fileName);
+```
 
 - **STEP 3** :
  Find your result in folder named *tree_result_MutiRoot*.
