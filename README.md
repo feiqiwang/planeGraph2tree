@@ -13,7 +13,9 @@ Input file need be Text Document(.txt).
  Open *CanonicalFormComputing.sln* file in folder *CanonicalFormComputing* by **Microsoft Visual Studio**.
  - **STEP 2** :
 You can easily use this program by changing fileName in *CanoicalFormComputing.cpp*.
-> string fileName = "BPSEQexample";
+```
+string fileName = "BPSEQexample";
+```
 
 Transferring BPSEQ format to DCEL by creating the class and running *formTransfer method*.
 ```
