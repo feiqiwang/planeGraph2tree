@@ -12,7 +12,7 @@ using namespace std;
 
 /*~~~~~~~~Structures~~~~~~~~*/
 struct halfEdges;
-struct verticles;
+struct vertices;
 struct faces;
 
 struct nodes;
@@ -24,19 +24,19 @@ protected:
 
 	string graphName;
 
-	vector<verticles> verList;
+	vector<vertices> verList;
 	vector<halfEdges> edgeList;
 	vector<faces> faceList;
 
-	vector<verticles> verList_ori;
+	vector<vertices> verList_ori;
 	vector<halfEdges> edgeList_ori;
 	vector<faces> faceList_ori;
 
-	vector<verticles> verList_tree;
+	vector<vertices> verList_tree;
 	vector<halfEdges> edgeList_tree;
 	vector<faces> faceList_tree;
 
-	vector<verticles> endpointList;
+	vector<vertices> endpointList;
 
 	vector<vector<string>> verListS;
 	vector<vector<string>> edgeListS;
@@ -87,7 +87,7 @@ private:
 
 	faces* topCenF = nullptr;
 	halfEdges* topCenE = nullptr;
-	verticles* topCenV = nullptr;
+	vertices* topCenV = nullptr;
 
 	int pTimes = 0;
 	bool criticalMode = false;
@@ -133,8 +133,8 @@ private: vector<halfEdges*> outterEforF(faces* f);
 private: vector<halfEdges*> outterEforE(vector<halfEdges*> e);
 private: bool isConnected(vector<halfEdges*> edges);
 private: int endEdge(vector<halfEdges*> edges);
-private: vector<verticles*> nodeForF(faces* f);
-private: vector<verticles*> nodeForE(halfEdges* e);
+private: vector<vertices*> nodeForF(faces* f);
+private: vector<vertices*> nodeForE(halfEdges* e);
 private: int searchNode(int index, vector<nodes> nList);
 private: nodes* nextNodeOfP(nodes* n);
 private: int subRootSearch();

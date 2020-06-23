@@ -9,13 +9,13 @@
 using namespace std;
 
 /*~~~~~~~~Structures~~~~~~~~*/
-struct verticles
+struct vertices
 {
 	int index;
 
 	halfEdges *incident_hE;
 
-	verticles *oriV;
+	vertices *oriV;
 };
 
 struct halfEdges
@@ -23,7 +23,7 @@ struct halfEdges
 	int index;
 
 	faces *incident_f;
-	verticles *target_v;
+	vertices *target_v;
 	halfEdges *twin_hE, *prev_hE, *next_hE;
 };
 
@@ -143,7 +143,7 @@ int Graph_DCEL::readVer(string vPath)
 }
 int Graph_DCEL::creatVer()
 {
-	verticles v;
+	vertices v;
 	for (vector<vector<string>>::iterator vLit=verListS.begin();vLit!=verListS.end();++vLit)
 	{
 		v = { stoi((*vLit)[0]) };
@@ -163,7 +163,7 @@ int Graph_DCEL::buildVer()
 	}
 	else
 	{
-		for (vector<verticles>::iterator vLit=verList.begin();vLit!=verList.end();++vLit)//int i = 0; i < this->verList.size(); i++)
+		for (vector<vertices>::iterator vLit=verList.begin();vLit!=verList.end();++vLit)//int i = 0; i < this->verList.size(); i++)
 		{
 			for (vector<vector<string>>::iterator vLsIt=verListS.begin();vLsIt!=verListS.end();++vLsIt)
 			{
@@ -195,7 +195,7 @@ bool Graph_DCEL::checkVer()
 
 	this->verCount = 0;
 
-	for (vector<verticles>::iterator vLit=verList.begin();vLit!=verList.end();++vLit)//int i = 0; i < this->verList.size(); i++)
+	for (vector<vertices>::iterator vLit=verList.begin();vLit!=verList.end();++vLit)//int i = 0; i < this->verList.size(); i++)
 	{
 		if ((*vLit).index != -604)
 		{
@@ -653,7 +653,7 @@ int PlaneGraph::RUNNING()
 			{
 				if ((*eLit).index == (*epRit)[0])
 				{ 
-					for (vector<verticles>::iterator epIt = endpointList.begin(); epIt != endpointList.end(); ++epIt)
+					for (vector<vertices>::iterator epIt = endpointList.begin(); epIt != endpointList.end(); ++epIt)
 					{
 						if ((*epIt).index == (*epRit)[1])
 						{
@@ -716,7 +716,7 @@ int PlaneGraph::RUNNING_MutiRoot()
 			{
 				if ((*eLit).index == (*epRit)[0])
 				{
-					for (vector<verticles>::iterator epIt = endpointList.begin(); epIt != endpointList.end(); ++epIt)
+					for (vector<vertices>::iterator epIt = endpointList.begin(); epIt != endpointList.end(); ++epIt)
 					{
 						if ((*epIt).index == (*epRit)[1])
 						{
@@ -1091,7 +1091,7 @@ int PlaneGraph::PEELING()
 			}
 			else if (sinExpEdgeIndex.size() == 0 && sinExpFaceIndex.size() > 1)//Only faces left.
 			{
-				vector<verticles*> nodes = nodeForF(&faceList[searchFace(sinExpFaceIndex[0])]);
+				vector<vertices*> nodes = nodeForF(&faceList[searchFace(sinExpFaceIndex[0])]);
 				if (nodes.size() == 1)
 				{
 					topCenV = &verList_tree[searchVer(nodes[0]->index)];
@@ -1104,7 +1104,7 @@ int PlaneGraph::PEELING()
 			}
 			else if (sinExpEdgeIndex.size() > 0 && sinExpFaceIndex.size() >= 1)//faces and single edges left.
 			{
-				vector<verticles*> nodes = nodeForF(&faceList[searchFace(sinExpFaceIndex[0])]);
+				vector<vertices*> nodes = nodeForF(&faceList[searchFace(sinExpFaceIndex[0])]);
 				if (nodes.size() == 1)
 				{
 					topCenV = &verList_tree[searchVer(nodes[0]->index)];
@@ -1127,7 +1127,7 @@ int PlaneGraph::PEELING()
 			}
 			else//edges left.
 			{
-				vector<verticles*> nodes = nodeForE(&edgeList[searchEdge(sinExpEdgeIndex[0])]);
+				vector<vertices*> nodes = nodeForE(&edgeList[searchEdge(sinExpEdgeIndex[0])]);
 				if (nodes.size() == 1)
 				{
 					topCenV = &verList_tree[searchVer(nodes[0]->index)];
@@ -1339,18 +1339,18 @@ bool PlaneGraph::AdjSubGraphy(halfEdges *e1, halfEdges *e2)
 int PlaneGraph::treeTransfer()
 {
 	//Build basic tree struct
-	for (vector<verticles>::iterator vLit = verList_tree.begin(); vLit != verList_tree.end(); ++vLit)
+	for (vector<vertices>::iterator vLit = verList_tree.begin(); vLit != verList_tree.end(); ++vLit)
 	{
 		nodes n = { (*vLit).index };
 		treeList.push_back(n);
 	}
-	for (vector<verticles>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+	for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
 	{
 		nodes n;
 		n.index = (*ePit).index;
 		treeList.push_back(n);
 	}
-	for (vector<verticles>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+	for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
 	{
 		treeList[searchNode((*ePit).index,treeList)].oriN = &treeList[searchNode((*ePit).oriV->index, treeList)];
 	}
@@ -1395,8 +1395,8 @@ int PlaneGraph::treeTransfer()
 	for (vector<nodes*>::iterator sRit = subRootN.begin(); sRit != subRootN.end(); ++sRit)
 	{
 		//Parents node for subtree searching
-		verticles* v = nullptr;
-		for (vector<verticles>::iterator vLtIt = verList_tree.begin(); vLtIt != verList_tree.end(); ++vLtIt)
+		vertices* v = nullptr;
+		for (vector<vertices>::iterator vLtIt = verList_tree.begin(); vLtIt != verList_tree.end(); ++vLtIt)
 		{
 			if ((*vLtIt).index == (*sRit)->index)
 			{
@@ -1480,8 +1480,8 @@ int PlaneGraph::treeTransfer()
 					{
 						expandFin = false;
 
-						verticles* v_node=nullptr;
-						for (vector<verticles>::iterator vLtIt = verList_tree.begin(); vLtIt != verList_tree.end(); ++vLtIt)
+						vertices* v_node=nullptr;
+						for (vector<vertices>::iterator vLtIt = verList_tree.begin(); vLtIt != verList_tree.end(); ++vLtIt)
 						{
 							if ((*vLtIt).index == (*sTlIt)->index)
 							{
@@ -1491,7 +1491,7 @@ int PlaneGraph::treeTransfer()
 						}
 						if (v_node == nullptr)
 						{
-							for (vector<verticles>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+							for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
 							{
 								if ((*ePit).index == (*sTlIt)->index)
 								{
@@ -1603,18 +1603,18 @@ int PlaneGraph::treeTransfer()
 int PlaneGraph::treeTransfer_MutiRoot()
 {
 	//Build basic tree struct
-	for (vector<verticles>::iterator vLit = verList_tree.begin(); vLit != verList_tree.end(); ++vLit)
+	for (vector<vertices>::iterator vLit = verList_tree.begin(); vLit != verList_tree.end(); ++vLit)
 	{
 		nodes n = { (*vLit).index };
 		treeList.push_back(n);
 	}
-	for (vector<verticles>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+	for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
 	{
 		nodes n;
 		n.index = (*ePit).index;
 		treeList.push_back(n);
 	}
-	for (vector<verticles>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+	for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
 	{
 		treeList[searchNode((*ePit).index, treeList)].oriN = &treeList[searchNode((*ePit).oriV->index, treeList)];
 	}
@@ -1637,18 +1637,18 @@ int PlaneGraph::treeTransfer_MutiRoot()
 		treeList.clear();
 
 		//Rebuild basic tree struct.
-		for (vector<verticles>::iterator vLit = verList_tree.begin(); vLit != verList_tree.end(); ++vLit)
+		for (vector<vertices>::iterator vLit = verList_tree.begin(); vLit != verList_tree.end(); ++vLit)
 		{
 			nodes n = { (*vLit).index };
 			treeList.push_back(n);
 		}
-		for (vector<verticles>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+		for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
 		{
 			nodes n;
 			n.index = (*ePit).index;
 			treeList.push_back(n);
 		}
-		for (vector<verticles>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+		for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
 		{
 			treeList[searchNode((*ePit).index, treeList)].oriN = &treeList[searchNode((*ePit).oriV->index, treeList)];
 		}
@@ -1843,9 +1843,9 @@ int PlaneGraph::endEdge(vector<halfEdges*> edges)
 		}
 	}
 }
-vector<verticles*> PlaneGraph::nodeForF(faces* f)
+vector<vertices*> PlaneGraph::nodeForF(faces* f)
 {
-	vector<verticles*> nodes;
+	vector<vertices*> nodes;
 	vector<halfEdges*> innerE = innerEforF(f);
 	for (vector<halfEdges*>::iterator iEit = innerE.begin(); iEit != innerE.end(); ++iEit)
 	{
@@ -1857,9 +1857,9 @@ vector<verticles*> PlaneGraph::nodeForF(faces* f)
 	}
 	return nodes;
 }
-vector<verticles*> PlaneGraph::nodeForE(halfEdges* e)
+vector<vertices*> PlaneGraph::nodeForE(halfEdges* e)
 {
-	vector<verticles*> nodes;
+	vector<vertices*> nodes;
 	/*
 	if (e->next_hE->twin_hE->index == e->twin_hE->prev_hE->index)
 	{
@@ -1913,8 +1913,8 @@ int PlaneGraph::subRootSearch()
 	for (vector<nodes*>::iterator sRit = subRootN.begin(); sRit != subRootN.end(); ++sRit)
 	{
 		//Parents node for subtree searching
-		verticles* v = nullptr;
-		for (vector<verticles>::iterator vLtIt = verList_tree.begin(); vLtIt != verList_tree.end(); ++vLtIt)
+		vertices* v = nullptr;
+		for (vector<vertices>::iterator vLtIt = verList_tree.begin(); vLtIt != verList_tree.end(); ++vLtIt)
 		{
 			if ((*vLtIt).index == (*sRit)->index)
 			{
@@ -1998,8 +1998,8 @@ int PlaneGraph::subRootSearch()
 					{
 						expandFin = false;
 
-						verticles* v_node = nullptr;
-						for (vector<verticles>::iterator vLtIt = verList_tree.begin(); vLtIt != verList_tree.end(); ++vLtIt)
+						vertices* v_node = nullptr;
+						for (vector<vertices>::iterator vLtIt = verList_tree.begin(); vLtIt != verList_tree.end(); ++vLtIt)
 						{
 							if ((*vLtIt).index == (*sTlIt)->index)
 							{
@@ -2009,7 +2009,7 @@ int PlaneGraph::subRootSearch()
 						}
 						if (v_node == nullptr)
 						{
-							for (vector<verticles>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+							for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
 							{
 								if ((*ePit).index == (*sTlIt)->index)
 								{
@@ -2183,7 +2183,7 @@ int PlaneGraph::removeEdge(int index) //Remove the relationship for a half-edge 
 	{
 		if (edgeList[n].index == edgeList[n].twin_hE->prev_hE->index)//If the half-edge's twin half-edge's pre-half-edge is itself, the verticle between them is the single verticle which can be remove with edges.
 		{
-			for (vector<verticles>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
+			for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
 			{
 				if ((*vLit).index == edgeList[n].target_v->index)
 				{
@@ -2203,7 +2203,7 @@ int PlaneGraph::removeEdge(int index) //Remove the relationship for a half-edge 
 	{
 		if (edgeList[n].twin_hE->index == edgeList[n].prev_hE->index)//If the half-edge's twin half-edge's pre-half-edge is itself, the verticle between them is the single verticle which can be remove with edges.
 		{
-			for (vector<verticles>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
+			for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
 			{
 				if ((*vLit).index == edgeList[n].twin_hE->target_v->index)
 				{
@@ -2259,7 +2259,7 @@ int PlaneGraph::removeFace(int index)
 int PlaneGraph::disconnectE(int index)
 {
 	int n = searchEdge(index);
-	verticles dupV = { endpointList.size()+1000001,&edgeList_tree[n] ,edgeList_tree[n].target_v };
+	vertices dupV = { endpointList.size()+1000001,&edgeList_tree[n] ,edgeList_tree[n].target_v };
 
 	this->endpointList.push_back(dupV);
 

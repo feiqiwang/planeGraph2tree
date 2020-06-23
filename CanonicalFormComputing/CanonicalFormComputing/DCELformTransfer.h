@@ -6,7 +6,7 @@
 using namespace std;
 
 struct halfEdges;
-struct verticles;
+struct vertices;
 struct faces;
 
 

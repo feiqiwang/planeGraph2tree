@@ -8,13 +8,13 @@
 
 using namespace std;
 
-struct verticles
+struct vertices
 {
 	int index;
 
 	halfEdges *incident_hE;
 
-	verticles *oriV;
+	vertices *oriV;
 };
 
 struct halfEdges
@@ -22,7 +22,7 @@ struct halfEdges
 	int index;
 
 	faces *incident_f;
-	verticles *target_v;
+	vertices *target_v;
 	halfEdges *twin_hE, *prev_hE, *next_hE;
 };
 
@@ -196,8 +196,8 @@ int DCELformTransfer::formTransfer(string path)
 
 
 	/*This index need be changed to AUGC form at last!!!!*/
-	vector<verticles> verList;
-	verticles v;
+	vector<vertices> verList;
+	vertices v;
 	for (vector<vector<int>>::iterator BPSEQit = BPSEQform.begin(); BPSEQit != BPSEQform.end(); ++BPSEQit)
 	{
 		v.index = (*BPSEQit)[0];
@@ -208,7 +208,7 @@ int DCELformTransfer::formTransfer(string path)
 	int count = 1;
 	vector<halfEdges> heList;
 	halfEdges h;
-	for (vector<verticles>::iterator vLit = verList.begin(); vLit != verList.end()-1; ++vLit)
+	for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end()-1; ++vLit)
 	{
 		h.index = count++;
 		h.incident_f = nullptr;
@@ -219,7 +219,7 @@ int DCELformTransfer::formTransfer(string path)
 		
 	}
 	int heCount = 0;
-	for (vector<verticles>::iterator vLit = verList.begin(); vLit != verList.end()-1; ++vLit)
+	for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end()-1; ++vLit)
 	{
 		(*vLit).incident_hE = &heList[heCount];
 		if (vLit == verList.begin())
@@ -271,8 +271,8 @@ int DCELformTransfer::formTransfer(string path)
 	int mode = 0;
 	halfEdges* e = &*(heList.begin());
 	halfEdges* tarHE;
-	verticles* tarVer=nullptr;
-	verticles* tarVerM = nullptr;
+	vertices* tarVer=nullptr;
+	vertices* tarVerM = nullptr;
 
 	vector<halfEdges> connectedHeList;
 
@@ -300,7 +300,7 @@ int DCELformTransfer::formTransfer(string path)
 	{
 		for (vector<vector<int>>::iterator BPSEQit = BPSEQform.begin(); BPSEQit != BPSEQform.end(); ++BPSEQit)
 		{
-			//There are 2 verticles need to be connected
+			//There are 2 vertices need to be connected
 			if (e->target_v->index==(*BPSEQit)[0] && (*BPSEQit)[2] > e->target_v->index)
 			{
 				//Change mode
@@ -324,7 +324,7 @@ int DCELformTransfer::formTransfer(string path)
 
 				//Search the target verticle.
 				
-				for (vector<verticles>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
+				for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
 					{
 					if ((*vLit).index == (*BPSEQit)[2])
 					{
@@ -704,7 +704,7 @@ int DCELformTransfer::formTransfer(string path)
 	*/
 
 	
-	//Change the Index for verticles.
+	//Change the Index for vertices.
 	int Aindex = 100001;
 	int Uindex = 200001;
 	int Gindex = 300001;
@@ -713,7 +713,7 @@ int DCELformTransfer::formTransfer(string path)
 	int Xindex = 600001;
 	int Yindex = 700001;
 
-	for (vector<verticles>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
+	for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
 	{
 		for (vector<vector<int>>::iterator BPSEQit = BPSEQform.begin(); BPSEQit != BPSEQform.end(); ++BPSEQit)
 		{
@@ -742,10 +742,10 @@ int DCELformTransfer::formTransfer(string path)
 	}
 
 	//Output
-	//Verticles
+	//vertices
 	ofstream VerOutput("./DCEL_result/" + path + "_ver" + ".txt");
 	cout << "-------verticle design-------" << endl;
-	for (vector<verticles>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
+	for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
 	{
 		if (vLit == verList.end() - 1)
 		{
