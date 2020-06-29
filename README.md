@@ -49,9 +49,10 @@ RT.running(fileName);
 
 ## Requirement
 This program could be run in Linux or Mac environment based on **R**. If you have not installed **R**, you can find it from https://www.r-project.org/ .
+If you want to run this program in Windows, please download and install **Git bash** from https://www.git-scm.com/download/win .
 
 **Before you use it**:
-This program will download a tree edit distance computation tool called **RTED** from http://tree-edit-distance.dbresearch.uni-salzburg.at/#download developed by [Pawlik et al.](https://arxiv.org/abs/1201.0230) .
+This program will download a tree edit distance computation tool called **RTED** from http://tree-edit-distance.dbresearch.uni-salzburg.at/#download developed by [Pawlik et al.](https://arxiv.org/abs/1201.0230) .Please make sure your **Terminal** or **Git bash** can use wget command.
 
 ## Usage
  - **STEP 1** :
@@ -61,9 +62,14 @@ This program will download a tree edit distance computation tool called **RTED**
  Customize input file path and output file name or parameters in the shell file.
  
  - **STEP 3** :
-Input codes below on Linux or on Mac Terminal in *comparisonProgram.sh* directory.
+Input codes below on Linux or Mac Terminal in *comparisonProgram.sh* directory.
 ```
 chmod 755 comparisonProgram.sh
 ./comparisonProgram.sh
+```
+
+Or input codes below on Windows Git bash in *comparisonProgram.sh* directory.
+```
+sh comparisonProgram.sh
 ```
 

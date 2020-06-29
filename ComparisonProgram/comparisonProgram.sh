@@ -64,7 +64,7 @@ do
 		done
 		echo -n "," >> $fileName
 		echo -n $result >> $fileName
-		echo -n -e '\u2022'
+		echo -n "."
 	done
 	echo -e "\r" >> $fileName
 done
