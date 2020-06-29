@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include <vector>
 #include <string>
+#include <direct.h>
 
 using namespace std;
 

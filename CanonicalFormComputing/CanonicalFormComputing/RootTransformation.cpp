@@ -24,15 +24,15 @@ int rootTrans::running(string index)
 
 int rootTrans::transfer(string index)
 {
-	string oriori=readFile("./tree_result_inSimpleName/"+index+".txt");
+	string oriori=readFile("./tree_result_inPsudoVer/"+index+".txt");
+	cout << "============================MutiRoot Result============================" << endl;
 	int sCount = oriori.length();
-	cout << oriori << endl;
 	string ori = oriori.substr(1,ori.length() - 2);
-	cout << ori << endl;
 
 	if (ori[0] == 'V')
 	{
 		saveFile(index,1,oriori);
+		cout << oriori << endl;
 	}
 	else if (ori[0] == 'E' || ori[0] == 'F')
 	{
@@ -69,7 +69,6 @@ int rootTrans::transfer(string index)
 		for (int i = 0; i < subTs.size(); i++)
 		{
 			string result = subTs[i].substr(0 , subTs[i].length() - 1)+ '{' + oriRoot;
-			cout << result << endl;
 			for (int j = 0; j < subTs.size(); j++)
 			{
 				if (i != j)
@@ -88,7 +87,6 @@ int rootTrans::transfer(string index)
 			
 
 			saveFile(index, i+1, result);
-
 			result.clear();
 		}
 
@@ -119,6 +117,7 @@ string rootTrans::readFile(string path)
 
 int rootTrans::saveFile(string index, int no, string result)
 {
+	_mkdir("tree_result_MutiRoot");
 	string folderPath = "./tree_result_MutiRoot/" + index;
 	_mkdir(folderPath.c_str());
 	ofstream save(folderPath+"/"+to_string(no)+".txt");

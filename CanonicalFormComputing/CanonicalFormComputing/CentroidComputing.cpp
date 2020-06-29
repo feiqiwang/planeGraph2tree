@@ -66,13 +66,13 @@ int Graph_DCEL::buildGraph(string ver_path, string edge_path, string face_path)
 	this->graphName = ver_path.substr(0, ver_path.find_first_of("_"));
 	cout << "The graph is " << graphName << endl;
 	/*Graph builder*/
-	readVer("./DCEL_result/"+ver_path);
+	readVer("./DCEL/"+ver_path);
 	creatVer();
 
-	readEdge("./DCEL_result/"+edge_path);
+	readEdge("./DCEL/"+edge_path);
 	creatEdge();
 
-	readFace("./DCEL_result/"+face_path);
+	readFace("./DCEL/"+face_path);
 	creatFace();
 
 	buildVer();
@@ -189,7 +189,7 @@ int Graph_DCEL::buildVer()
 bool Graph_DCEL::checkVer()
 {
 
-	cout << "---------------Verticle Checking Start---------------" << endl;
+	cout << "---------------Vertices Checking Start---------------" << endl;
 
 	int count = 0;
 
@@ -206,7 +206,7 @@ bool Graph_DCEL::checkVer()
 			}
 			if ((*vLit).incident_hE->target_v->index != (*vLit).index)
 			{
-				cout << "The incident half-edge for No." << (*vLit).index << " verticle is error." << endl;
+				cout << "The incident half-edge for No." << (*vLit).index << " vertices is error." << endl;
 				count++;
 			}
 		}
@@ -214,12 +214,12 @@ bool Graph_DCEL::checkVer()
 	}
 	if (count > 0)
 	{
-		cout << "--------Fail to pass the verticle checking--------" << endl;
+		cout << "--------Fail to pass the vertex checking--------" << endl;
 		return false;
 	}
 	else
 	{
-		cout << "--------Passed the verticle checking--------" << endl;
+		cout << "--------Passed the vertex checking--------" << endl;
 		return true;
 	}
 }
@@ -318,7 +318,7 @@ int Graph_DCEL::buildEdge()
 					(*eLit).incident_f = &this->faceList[searchFace(stoi((*eLsIt)[1]))];
 					edgeList_ori[i].incident_f= &this->faceList_ori[searchFace(stoi((*eLsIt)[1]))];
 					edgeList_tree[i].incident_f = &this->faceList_tree[searchFace(stoi((*eLsIt)[1]))];
-					/*connect target verticle*/
+					/*connect target vertices*/
 					(*eLit).target_v = &this->verList[searchVer(stoi((*eLsIt)[2]))];
 					edgeList_ori[i].target_v= &this->verList_ori[searchVer(stoi((*eLsIt)[2]))];
 					edgeList_tree[i].target_v = &this->verList_tree[searchVer(stoi((*eLsIt)[2]))];
@@ -558,7 +558,7 @@ int Graph_DCEL::searchVer(int index)
 		}
 	}
 	
-	cout << "Cannot find the Veticle whose index is " << index << "." << endl;
+	cout << "Cannot find the Vertex whose index is " << index << "." << endl;
 	return -427;
 }
 
@@ -770,7 +770,7 @@ int PlaneGraph::setOuterFace(int n)
 int PlaneGraph::setOuterFace(string path)
 {
 	string s;
-	ifstream outerF("./DCEL_result/"+path, ios::in);
+	ifstream outerF("./DCEL/"+path, ios::in);
 	if (outerF.is_open())
 	{
 		getline(outerF, s);
@@ -1095,7 +1095,7 @@ int PlaneGraph::PEELING()
 				if (nodes.size() == 1)
 				{
 					topCenV = &verList_tree[searchVer(nodes[0]->index)];
-					cout << "=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=The No." << topCenV->index << " Verticle is the Topological Centroid of this Plane Graph.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=" << endl;
+					cout << "=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=The No." << topCenV->index << " vertices is the Topological Centroid of this Plane Graph.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=" << endl;
 				}
 				else
 				{
@@ -1108,7 +1108,7 @@ int PlaneGraph::PEELING()
 				if (nodes.size() == 1)
 				{
 					topCenV = &verList_tree[searchVer(nodes[0]->index)];
-					cout << "=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=The No." << topCenV->index << " Verticle is the Topological Centroid of this Plane Graph.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=" << endl;
+					cout << "=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=The No." << topCenV->index << " vertices is the Topological Centroid of this Plane Graph.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=" << endl;
 				}
 				else
 				{
@@ -1131,7 +1131,7 @@ int PlaneGraph::PEELING()
 				if (nodes.size() == 1)
 				{
 					topCenV = &verList_tree[searchVer(nodes[0]->index)];
-					cout << "=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=The No." << topCenV->index << " Verticle is the Topological Centroid of this Plane Graph.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=" << endl;
+					cout << "=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=The No." << topCenV->index << " vertices is the Topological Centroid of this Plane Graph.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=" << endl;
 				}
 			}
 			
@@ -1176,7 +1176,7 @@ int PlaneGraph::PEELING()
 	
 
 	/*Remove the single exposed half-edges*/
-	cout << "-------Remove the single exposed half-edges-------" << endl;
+	cout << "-------Remove single exposed half-edges-------" << endl;
 	for (vector<int>::iterator sEeIit = sinExpEdgeIndex.begin(); sEeIit != sinExpEdgeIndex.end(); ++sEeIit)
 	{
 		removeEdge((*sEeIit));
@@ -1184,7 +1184,7 @@ int PlaneGraph::PEELING()
 	}
 
 	/*Remove the single exposed faces*/
-	cout << "-------Remove the single exposed faces-------" << endl;
+	cout << "-------Remove single exposed faces-------" << endl;
 	for (vector<int>::iterator sEfIit = sinExpFaceIndex.begin(); sEfIit != sinExpFaceIndex.end(); ++sEfIit)
 	{
 		cout << "fIndex: " << (*sEfIit) << endl;
@@ -1192,7 +1192,7 @@ int PlaneGraph::PEELING()
 	}
 
 	/*Remove the adjunct subgraph*/
-	cout << "-------Remove the adjunct subgraph-------" << endl;
+	cout << "-------Remove adjunct subgraph-------" << endl;
 	for (vector<vector<halfEdges*>>::iterator aSsetIt = adjSubGraphSets.begin(); aSsetIt != adjSubGraphSets.end(); ++aSsetIt)
 	{
 		for (vector<halfEdges*>::iterator aSit = (*aSsetIt).begin(); aSit != (*aSsetIt).end(); ++aSit)
@@ -1202,7 +1202,7 @@ int PlaneGraph::PEELING()
 	}
 
 	/*Remove the detachable edges*/
-	cout << "-------Remove the dismantled edges-------" << endl;
+	cout << "-------Remove dismantled edges-------" << endl;
 	for (vector<vector<halfEdges*>>::iterator dEsetIt = cla.begin(); dEsetIt != cla.end(); ++dEsetIt)
 	{
 		for (vector<halfEdges*>::iterator dEit = (*dEsetIt).begin(); dEit != (*dEsetIt).end(); ++dEit)
@@ -1235,7 +1235,7 @@ int PlaneGraph::findOuterCircle()
 	outerC.clear();
 	for (vector<halfEdges>::iterator elIt=edgeList.begin();elIt!=edgeList.end();++elIt)
 	{
-		if ((*elIt).index != -604 && outerFace->index == (*elIt).incident_f->index)//Check the the edge compose a inner face or not.
+		if ((*elIt).index != -604 && outerFace->index == (*elIt).incident_f->index)//Check the edge compose a inner face or not.
 		{
 			outerC.push_back(&(*elIt));
 		}
@@ -2181,7 +2181,7 @@ int PlaneGraph::removeEdge(int index) //Remove the relationship for a half-edge 
 	//veticle relationship
 	if (edgeList[n].target_v->incident_hE->index == edgeList[n].index)
 	{
-		if (edgeList[n].index == edgeList[n].twin_hE->prev_hE->index)//If the half-edge's twin half-edge's pre-half-edge is itself, the verticle between them is the single verticle which can be remove with edges.
+		if (edgeList[n].index == edgeList[n].twin_hE->prev_hE->index)//If the half-edge's twin half-edge's pre-half-edge is itself, the vertices between them is the single vertices which can be remove with edges.
 		{
 			for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
 			{
@@ -2201,7 +2201,7 @@ int PlaneGraph::removeEdge(int index) //Remove the relationship for a half-edge 
 
 	if (edgeList[n].twin_hE->target_v->incident_hE->index == edgeList[n].twin_hE->index)
 	{
-		if (edgeList[n].twin_hE->index == edgeList[n].prev_hE->index)//If the half-edge's twin half-edge's pre-half-edge is itself, the verticle between them is the single verticle which can be remove with edges.
+		if (edgeList[n].twin_hE->index == edgeList[n].prev_hE->index)//If the half-edge's twin half-edge's pre-half-edge is itself, the vertices between them is the single vertices which can be remove with edges.
 		{
 			for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
 			{
@@ -2315,7 +2315,7 @@ int PlaneGraph::disconnectE(int index)
 		cout << "!=!=!=!=!=!=!=!=! disconnectedEdge Face merge Error !=!=!=!=!=!=!=!=!" << endl;
 	}
 
-	//Verticle relationship
+	//vertices relationship
 	if (edgeList_tree[n].target_v->incident_hE->index == edgeList_tree[n].index)
 	{
 		edgeList_tree[n].target_v->incident_hE = edgeList_tree[n].twin_hE->prev_hE;
@@ -2433,7 +2433,8 @@ int PlaneGraph::labelIden()
 
 int PlaneGraph::APTEDformTrans()
 {
-	ofstream treeString("./tree_result_inSimpleName/" + this->graphName+".txt");// + "_treeString.txt");
+	_mkdir("tree_result_inPsudoVer");
+	ofstream treeString("./tree_result_inPsudoVer/" + this->graphName+".txt");// + "_treeString.txt");
 	cout << "Tree transfer to string form:" << endl;
 
 
@@ -2517,21 +2518,22 @@ int PlaneGraph::APTEDformTrans()
 int PlaneGraph::APTEDformTrans_MutiRoot()
 {
 	//Creat folder
-	string folderPath = "./tree_result_MutiRoot/";
-	_mkdir((folderPath + this->graphName).c_str());
+	string folderPath = "tree_result_MutiRoot";
+	_mkdir((folderPath).c_str());
+	_mkdir(("./" + folderPath + "/" + this->graphName).c_str());
 
 	for (int i = 0; i < subRootN.size(); i++)
 	{
 		ofstream treeString(folderPath + this->graphName + "/" + to_string(i+1)  + ".txt");// + "_treeString.txt");
 		cout << "Tree transfer to string form: No" + to_string(i+1)<<" of "<<this->graphName << endl;
 
-		//Let one of the node be a root.
+		//Let one of nodes be a root.
 
 		bool isLeaf = false;
 
 		if (subRootN[i]->isLeaf == true)
 		{
-			//Save the orgnal type.
+			//Save the original type.
 			isLeaf = true;
 		}
 

@@ -85,7 +85,7 @@ int DCELformTransfer::formTransfer(string path)
 	vector<vector<int>> BPSEQform;
 	vector<int> iSset;
 	string iS;
-	ifstream fTread("./BPSEQ_result/"+path+".txt" , ios::in);
+	ifstream fTread("./BPSEQ_data/"+path+".txt" , ios::in);
 	if (!fTread.is_open())
 	{
 		cout << "Error! Cannot open the transfer file. " << path << endl;
@@ -322,7 +322,7 @@ int DCELformTransfer::formTransfer(string path)
 				}
 
 
-				//Search the target verticle.
+				//Search the target vertices.
 				
 				for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
 					{
@@ -742,9 +742,10 @@ int DCELformTransfer::formTransfer(string path)
 	}
 
 	//Output
+	_mkdir("DCEL");
 	//vertices
-	ofstream VerOutput("./DCEL_result/" + path + "_ver" + ".txt");
-	cout << "-------verticle design-------" << endl;
+	ofstream VerOutput("./DCEL/" + path + "_ver" + ".txt");
+	cout << "-------vertices design-------" << endl;
 	for (vector<vertices>::iterator vLit = verList.begin(); vLit != verList.end(); ++vLit)
 	{
 		if (vLit == verList.end() - 1)
@@ -762,15 +763,15 @@ int DCELformTransfer::formTransfer(string path)
 
 	//output
 	//half-edges
-	ofstream EdgeOutput("./DCEL_result/" + path + "_edge" + ".txt");
-	cout << "-------halfEdge desing-------" << endl;
+	ofstream EdgeOutput("./DCEL/" + path + "_edge" + ".txt");
+	cout << "-------halfEdge design-------" << endl;
 	for (vector<halfEdges>::iterator heLit = heList.begin(); heLit != heList.end(); ++heLit)
 	{
 
 		EdgeOutput << "{" << (*heLit).index << "," << (*heLit).incident_f->index << "," << (*heLit).target_v->index << "," << (*heLit).twin_hE->index << "," << (*heLit).prev_hE->index << "," << (*heLit).next_hE->index << "}" << endl;
 		cout << "heIndex: " << (*heLit).index << "IncF: " << (*heLit).incident_f->index << " tVer:" << (*heLit).target_v->index << " prevE: " << (*heLit).prev_hE->index << " nextE: " << (*heLit).next_hE->index << " twinE: " << (*heLit).twin_hE->index << endl;
 	}
-	cout << "-------connected halfEdge desing-------" << endl;
+	cout << "-------connected halfEdge design-------" << endl;
 	for (vector<halfEdges>::iterator cElIt = connectedHeList.begin(); cElIt != connectedHeList.end(); ++cElIt)
 	{
 		if (cElIt != connectedHeList.end() - 1)
@@ -786,7 +787,7 @@ int DCELformTransfer::formTransfer(string path)
 	EdgeOutput.close();
 	//output
 	//faces
-	ofstream faceOutput("./DCEL_result/" + path + "_face" + ".txt");
+	ofstream faceOutput("./DCEL/" + path + "_face" + ".txt");
 	for (vector<faces>::iterator fLit = faceList.begin(); fLit != faceList.end(); ++fLit)
 	{
 		if (fLit != faceList.end() - 1)
@@ -804,7 +805,7 @@ int DCELformTransfer::formTransfer(string path)
 	
 	//output
 	//outerface
-	ofstream outerFoutput("./DCEL_result/" + path + "_outerF" + ".txt");
+	ofstream outerFoutput("./DCEL/" + path + "_outerF" + ".txt");
 	outerFoutput << OuterIndex;
 
 	cout << "DCEL form transfer is finished. ^ ^" << endl;
