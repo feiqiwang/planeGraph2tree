@@ -9,6 +9,9 @@ fileName="treeEditDistanceResult.CSV"
 #You can change the file path HERE.
 path="./MutiRootTreeExample/PKB"
 
+#You can set the index name HERE
+indexName="PKB"
+
 #You can set the experiment number HERE.
 expNumBegin=1
 expNumEnd=10
@@ -39,14 +42,14 @@ echo -n "dist" >> $fileName
 
 for ((i=expNumBegin;i<=expNumEnd;i++))
 do
-	echo -n ",$i" >> $fileName
+	echo -n ",$indexName$i" >> $fileName
 done
 
 echo -e "\r" >> $fileName
 
 for ((i=expNumBegin;i<=expNumEnd;i++))
 do
-	echo -n "$i">>$fileName
+	echo -n "$indexName$i">>$fileName
 	for ((j=expNumBegin;j<=expNumEnd;j++))
 	do
 		result=999999
