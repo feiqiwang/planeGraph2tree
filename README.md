@@ -115,4 +115,10 @@ Or input codes below on Windows Git bash in *comparisonProgram.sh* directory.
 ```
 sh comparisonProgram.sh
 ```
+##Update logs
+- **2020.06.29**
+Fix serveral word mistakes and rename result folder name.
+Add Mac Xcode version.
 
+- **2020.07.14**
+Add new method - AllVerAsRoot
