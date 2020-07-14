@@ -33,6 +33,8 @@ int main(int argc, const char * argv[]) {
     rootTrans RT;
     RT.running(fileName);
     
+    PG.APTEDformTrans_AllVerAsRoot();
+    
     system("Pause");
     return 0;
 }

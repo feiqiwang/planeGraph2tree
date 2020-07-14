@@ -2550,7 +2550,7 @@ int PlaneGraph::APTEDformTrans_MutiRoot()
 					if (i != k)
 					{
 						subRootN[i]->childrenN.push_back(subRootN[k]);
-						if (subRootN[i]->isLeaf = true)
+						if (subRootN[i]->isLeaf == true)
 						{
 							subRootN[i]->isLeaf = false;
 						}
@@ -2683,3 +2683,411 @@ int PlaneGraph::APTEDformTrans_MutiRoot()
 	return 0;
 
 }
+int PlaneGraph::APTEDformTrans_AllVerAsRoot()
+{
+    mkdir("tree_result_allVerAsRoot",0755);
+    string folderPath = "./tree_result_allVerAsRoot/" + this->graphName;
+    mkdir(folderPath.c_str(),0755);
+    string patternFile;
+    
+    if (topCenF != nullptr)
+    {
+        int n = searchEdge(topCenF->arbitarary_hE->index);
+        vertices dupV = { (int)endpointList.size() + (int)1000001,&edgeList_tree[n] ,edgeList_tree[n].target_v };
+        this->endpointList.push_back(dupV);
+        
+        edgeList_tree[n].target_v->incident_hE = edgeList_tree[n].next_hE->twin_hE;
+        edgeList_tree[n].target_v = &endpointList.back();
+        
+        edgeList_tree[n].next_hE->prev_hE = edgeList_tree[n].twin_hE->prev_hE;
+        edgeList_tree[n].twin_hE->prev_hE->next_hE = edgeList_tree[n].next_hE;
+        edgeList_tree[n].next_hE = edgeList_tree[n].twin_hE;
+        edgeList_tree[n].twin_hE->prev_hE = &edgeList_tree[n];
+        
+        //show result.
+        if (false)
+        {
+            checkEdge();
+            
+            for (vector<halfEdges>::iterator eLit = edgeList_tree.begin(); eLit != edgeList_tree.end(); ++eLit)
+            {
+                if ((*eLit).target_v == nullptr)
+                {
+                    for (vector<vector<int>>::iterator epRit = endpointRel.begin(); epRit != endpointRel.end(); ++epRit)
+                    {
+                        if ((*eLit).index == (*epRit)[0])
+                        {
+                            for (vector<vertices>::iterator epIt = endpointList.begin(); epIt != endpointList.end(); ++epIt)
+                            {
+                                if ((*epIt).index == (*epRit)[1])
+                                {
+                                    (*eLit).target_v = &(*epIt);
+                                }
+                            }
+                        }
+                    }
+                }
+                if ((*eLit).target_v->oriV == nullptr)
+                {
+                    cout << "eIndex: " << (*eLit).index << " incF: " << (*eLit).incident_f->index << " tarV: " << (*eLit).target_v->index << " twinE:" << (*eLit).twin_hE->index << " prevE:" << (*eLit).prev_hE->index << " nextE: " << (*eLit).next_hE->index << endl;
+                }
+                else
+                {
+                    cout << "eIndex: " << (*eLit).index << " incF: " << (*eLit).incident_f->index << " newTarV: " << (*eLit).target_v->index << " oriV:" << (*eLit).target_v->oriV->index << " twinE:" << (*eLit).twin_hE->index << " prevE:" << (*eLit).prev_hE->index << " nextE: " << (*eLit).next_hE->index << endl;
+                }
+                
+            }
+        }
+        
+        
+        
+    }
+    
+    //Build basic tree structure
+    vector<nodes> subTreeList;
+    for (vector<vertices>::iterator vLit = verList_tree.begin(); vLit != verList_tree.end(); ++vLit)
+    {
+        nodes n = { (*vLit).index };
+        subTreeList.push_back(n);
+    }
+    for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+    {
+        nodes n;
+        n.index = (*ePit).index;
+        subTreeList.push_back(n);
+    }
+    for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+    {
+        subTreeList[searchNode((*ePit).index, subTreeList)].oriN = &subTreeList[searchNode((*ePit).oriV->index, subTreeList)];
+    }
+    
+    
+    for (vector<vertices>::iterator vLitR = verList_tree.begin(); vLitR != verList_tree.end(); ++vLitR)
+    {
+        //rebuilt tree nodes relationship letting this vertex as root.
+        //Parents node for subtree searching
+        nodes* sRit = &subTreeList[searchNode((*vLitR).index, subTreeList)];
+        vertices* v = &(*vLitR);
+        
+        halfEdges* e = v->incident_hE;
+        halfEdges* e_ori = v->incident_hE;
+        while (true)
+        {
+            e = e->next_hE;
+            vector<nodes*>::iterator cNit;
+            for (cNit = (sRit)->childrenN.begin(); cNit != (sRit)->childrenN.end(); ++cNit)
+            {
+                if (e->target_v->index == (*cNit)->index)
+                {
+                    break;
+                }
+            }
+            if (cNit != (sRit)->childrenN.end())
+            {
+                break;
+            }
+            
+            /*
+             vector<nodes*>::iterator sRitv1;
+             for (sRitv1 = subRootN.begin(); sRitv1 != subRootN.end(); ++sRitv1)
+             {
+             if ((*sRitv1)->index == e->target_v->index)
+             {
+             break;
+             }
+             }
+             */
+            if (e->target_v->index != (*vLitR).index)
+            {
+                (sRit)->childrenN.push_back(&subTreeList[searchNode(e->target_v->index, subTreeList)]);
+                subTreeList[searchNode(e->target_v->index, subTreeList)].parentN = &subTreeList[searchNode((sRit)->index, subTreeList)];
+            }
+            e = e->twin_hE;
+            if (e->index == e_ori->index)
+            {
+                break;
+            }
+            
+        }
+        //Parents node for subtree searching is end
+        
+        
+        for (vector<nodes*>::iterator cNit = (sRit)->childrenN.begin(); cNit != (sRit)->childrenN.end(); ++cNit)
+        {
+            vector<nodes*> subTlist;
+            subTlist.push_back(*cNit);
+            vector<nodes*> subTlist_p;
+            for (vector<nodes*>::iterator cNcNit = (*cNit)->childrenN.begin(); cNcNit != (*cNit)->childrenN.end(); ++cNcNit)
+            {
+                vector<nodes*>::iterator sRitv1;
+                for (sRitv1 = subRootN.begin(); sRitv1 != subRootN.end(); ++sRitv1)
+                {
+                    if ((*sRitv1)->index == (*cNcNit)->index)
+                    {
+                        break;
+                    }
+                }
+                if (sRitv1 == subRootN.end())
+                {
+                    subTlist.push_back((*cNcNit));
+                }
+            }
+            while (true)
+            {
+                bool expandFin = true;
+                vector<nodes*>::iterator sTlIt;
+                for (sTlIt = subTlist.begin(); sTlIt != subTlist.end(); ++sTlIt)
+                {
+                    if ((*sTlIt)->childrenN.empty() && !(*sTlIt)->isLeaf && (*sTlIt)->parentN != nullptr)
+                    {
+                        expandFin = false;
+                        
+                        vertices* v_node = nullptr;
+                        for (vector<vertices>::iterator vLtIt = verList_tree.begin(); vLtIt != verList_tree.end(); ++vLtIt)
+                        {
+                            if ((*vLtIt).index == (*sTlIt)->index)
+                            {
+                                v_node = &(*vLtIt);
+                                break;
+                            }
+                        }
+                        if (v_node == nullptr)
+                        {
+                            for (vector<vertices>::iterator ePit = endpointList.begin(); ePit != endpointList.end(); ++ePit)
+                            {
+                                if ((*ePit).index == (*sTlIt)->index)
+                                {
+                                    v_node = &(*ePit);
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        halfEdges* e_node = v_node->incident_hE;
+                        
+                        while (true)
+                        {
+                            e_node = e_node->next_hE;
+                            if (e_node->target_v->index == (*sTlIt)->parentN->index)
+                            {
+                                e_node = e_node->twin_hE;
+                                e_node = e_node->next_hE;
+                                break;
+                            }
+                            e_node = e_node->twin_hE;
+                        }
+                        
+                        while (true)
+                        {
+                            if (e_node->target_v->index == (*sTlIt)->parentN->index)
+                            {
+                                break;
+                            }
+                            //cout << e->index << endl;
+                            subTreeList[searchNode(e_node->target_v->index, subTreeList)].parentN = &subTreeList[searchNode((*sTlIt)->index, subTreeList)];
+                            (*sTlIt)->childrenN.push_back(&subTreeList[searchNode(e_node->target_v->index, subTreeList)]);
+                            
+                            e_node = e_node->twin_hE;
+                            e_node = e_node->next_hE;
+                        }
+                        
+                        if ((*sTlIt)->childrenN.empty())
+                        {
+                            (*sTlIt)->isLeaf = true;
+                        }
+                        else
+                        {
+                            subTlist_p.insert(subTlist_p.end(), (*sTlIt)->childrenN.begin(), (*sTlIt)->childrenN.end());
+                        }
+                        
+                        
+                        
+                    }
+                }
+                subTlist.insert(subTlist.end(), subTlist_p.begin(), subTlist_p.end());
+                subTlist_p.clear();
+                if (expandFin == true)
+                {
+                    subTlist.clear();
+                    break;
+                }
+            }
+        }
+        
+        //Label identification
+        for (vector<nodes>::iterator tLitL = subTreeList.begin(); tLitL != subTreeList.end(); ++tLitL)
+        {
+            if ((*tLitL).oriN == nullptr)
+            {
+                switch ((*tLitL).index / 100000)
+                {
+                    case 1:
+                        (*tLitL).label = 'A';
+                        break;
+                    case 2:
+                        (*tLitL).label = 'U';
+                        break;
+                    case 3:
+                        (*tLitL).label = 'G';
+                        break;
+                    case 4:
+                        (*tLitL).label = 'C';
+                        break;
+                    case 5:
+                        (*tLitL).label = 'T';
+                        break;
+                    case 6:
+                        (*tLitL).label = 'X';
+                        break;
+                    case 7:
+                        (*tLitL).label = 'Y';
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch ((*tLitL).oriN->index / 100000)
+                {
+                    case 1:
+                        (*tLitL).label = 'A';
+                        break;
+                    case 2:
+                        (*tLitL).label = 'U';
+                        break;
+                    case 3:
+                        (*tLitL).label = 'G';
+                        break;
+                    case 4:
+                        (*tLitL).label = 'C';
+                        break;
+                    case 5:
+                        (*tLitL).label = 'T';
+                        break;
+                    case 6:
+                        (*tLitL).label = 'X';
+                        break;
+                    case 7:
+                        (*tLitL).label = 'Y';
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        //print tree result in node form.
+        if (false)
+        {
+            for (vector<nodes>::iterator tLitP = subTreeList.begin(); tLitP != subTreeList.end(); ++tLitP)
+            {
+                cout << "NodeIndex: " << (*tLitP).index << endl;
+                if ((*tLitP).parentN == nullptr)
+                {
+                    cout << " isLeaf: " << (*tLitP).isLeaf << endl;
+                }
+                else
+                {
+                    cout << "ParentNode: " << (*tLitP).parentN->index << " isLeaf: " << (*tLitP).isLeaf << endl;
+                    
+                    
+                }
+                if (!(*tLitP).isLeaf)
+                {
+                    cout << "ChindNodes: ";
+                    for (vector<nodes*>::iterator cTit = (*tLitP).childrenN.begin(); cTit != (*tLitP).childrenN.end(); ++cTit)
+                    {
+                        cout << (*cTit)->index << " ";
+                    }
+                    cout << endl;
+                }
+                cout << "Label: " << (*tLitP).label << endl;
+                cout << "-----------------------------------------" << endl;
+                
+            }
+        }
+        
+        
+        
+        patternFile = folderPath + "/"+to_string((*vLitR).index) + ".txt";
+        ofstream verAsRootString(patternFile);
+        cout << "No." + to_string((*vLitR).index) + " vertex as root RESULT:" << endl;
+        
+        
+        
+        
+        
+        nodes* n;
+        nodes* n_p;
+        
+        nodes* n_ori = &subTreeList[searchNode((*vLitR).index, subTreeList)];
+        n = &subTreeList[searchNode((*vLitR).index, subTreeList)];
+        bool loopStop = false;
+        
+        int countNode = 0;
+        
+        while (true)
+        {
+            verAsRootString << "{" + n->label;
+            cout << "{" + n->label;
+            countNode++;
+            if (n->isLeaf)
+            {
+                verAsRootString << "}";
+                cout << "}";
+                if (n->index == (n_ori)->index)
+                {
+                    break;
+                }
+                while (true)
+                {
+                    n_p = nextNodeOfP(n);
+                    if (n_p != nullptr)
+                    {
+                        n = n_p;
+                        break;
+                    }
+                    else
+                    {
+                        verAsRootString << "}";
+                        cout << "}";
+                        n = n->parentN;
+                        if (n->index == (n_ori)->index)
+                        {
+                            loopStop = true;
+                            break;
+                        }
+                    }
+                    
+                }
+            }
+            else
+            {
+                n = n->childrenN[0];
+            }
+            if (loopStop)
+            {
+                break;
+            }
+        }
+        
+        cout << endl;
+        if (countNode != subTreeList.size())
+        {
+            cout << "!!!!!!!!!!!!!!!!Output Size error for result " << (*vLitR).index << " as ROOT!!!!!!!!!!!!!!!!!!!!!!" << endl;
+        }
+        
+        //reset subTreeList.
+        for (vector<nodes>::iterator sTit = subTreeList.begin(); sTit != subTreeList.end(); ++sTit)
+        {
+            (*sTit).childrenN.clear();
+            (*sTit).isLeaf = 0;
+            (*sTit).parentN = nullptr;
+        }
+        
+        
+    }
+    return 0;
+    
+}
+

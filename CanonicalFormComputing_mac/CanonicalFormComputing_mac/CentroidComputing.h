@@ -158,4 +158,5 @@ public: bool seEdgeTesting(vector<int> tList);
 private: int labelIden();
 private: int APTEDformTrans();
 private: int APTEDformTrans_MutiRoot();
+public: int APTEDformTrans_AllVerAsRoot();
 };
