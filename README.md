@@ -39,7 +39,7 @@ If the topological centroid is either an edge or a face, one of the vertices con
 rootTrans RT; 
 RT.running(fileName);
 ```
-
+Then click RUN BUTTON "Local Windows Debugger" and wait for program finish.
 - **STEP 3** :
  Find resulting text files containing tree structure informations described in a bracket-format in the output-directory named *tree_result_MutiRoot*.
 
@@ -76,7 +76,7 @@ If the topological centroid is either an edge or a face, one of the vertices con
 rootTrans RT; 
 RT.running(fileName);
 ```
-
+Then click RUN BUTTON and wait for program finish.
 - **STEP 4** :
  Find resulting text files containing tree structure informations described in a bracket-format in the output-directory named *tree_result_MutiRoot*.
 
