@@ -115,7 +115,7 @@ Or input codes below on Windows Git bash in *comparisonProgram.sh* directory.
 ```
 sh comparisonProgram.sh
 ```
-##Update logs
+## Update logs
 - **2020.06.29**
 Fix serveral word mistakes and rename result folder name.
 Add Mac Xcode version.
