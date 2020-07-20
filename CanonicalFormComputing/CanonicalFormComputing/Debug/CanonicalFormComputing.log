@@ -1,6 +1,36 @@
-﻿  CanonicalFormComputing.cpp
+﻿  stdafx.cpp
+  CanonicalFormComputing.cpp
+  CentroidComputing.cpp
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(107): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(134): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(247): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(271): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(422): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(449): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(831): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(834): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(971): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(975): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(982): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(987): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(1033): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(1036): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(1055): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(1059): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(1885): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(2262): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(2349): warning C4553: '==': result of expression not used; did you intend '='?
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(2590): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(2605): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(2609): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(2758): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+  DCELformTransfer.cpp
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\dcelformtransfer.cpp(104): warning C4018: '<': signed/unsigned mismatch
   RootTransformation.cpp
-c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing\canonicalformcomputing\roottransformation.cpp(69): warning C4018: '<': signed/unsigned mismatch
-c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing\canonicalformcomputing\roottransformation.cpp(72): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\roottransformation.cpp(69): warning C4018: '<': signed/unsigned mismatch
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\roottransformation.cpp(72): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
-  CanonicalFormComputing.vcxproj -> C:\Users\Feqi Wang\Documents\CanonicalFormComputing\CanonicalFormComputing\Debug\CanonicalFormComputing.exe
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(1845): warning C4715: 'PlaneGraph::endEdge': not all control paths return a value
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(1892): warning C4715: 'PlaneGraph::searchNode': not all control paths return a value
+c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing_v20200714\canonicalformcomputing\centroidcomputing.cpp(1910): warning C4715: 'PlaneGraph::nextNodeOfP': not all control paths return a value
+  CanonicalFormComputing.vcxproj -> C:\Users\Feqi Wang\Documents\CanonicalFormComputing\CanonicalFormComputing_v20200714\Debug\CanonicalFormComputing.exe

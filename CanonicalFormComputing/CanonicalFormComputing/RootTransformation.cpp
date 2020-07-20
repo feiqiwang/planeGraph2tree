@@ -78,7 +78,8 @@ int rootTrans::transfer(string index)
 			}
 			result += '}'; 
 			result += '}';
-			cout <<"The "<<i+1<<" result is"<< result << endl;
+			cout << "The result" << i + 1 << ":" << endl;
+			cout << result << endl;
 			if (result.length() != sCount && sCount%3 != 0)
 			{
 				cout << "Size ERROR." << result.length()<<" "<<sCount<<endl;

@@ -157,6 +157,8 @@ public: bool seEdgeTesting(vector<int> tList);
 
 		/*Transfer forms*/
 private: int labelIden();
+private: int labelIden_sub(vector<nodes> tList);
 private: int APTEDformTrans();
 private: int APTEDformTrans_MutiRoot();
+public: int APTEDformTrans_AllVerAsRoot();
 };

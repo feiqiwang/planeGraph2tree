@@ -1,6 +1,0 @@
-﻿  CanonicalFormComputing.cpp
-  RootTransformation.cpp
-c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing\canonicalformcomputing\roottransformation.cpp(69): warning C4018: '<': signed/unsigned mismatch
-c:\users\feqi wang\documents\canonicalformcomputing\canonicalformcomputing\canonicalformcomputing\roottransformation.cpp(72): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  CanonicalFormComputing.vcxproj -> C:\Users\Feqi Wang\Documents\CanonicalFormComputing\CanonicalFormComputing\Debug\CanonicalFormComputing.exe
