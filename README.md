@@ -1,5 +1,5 @@
 # planeGraph2tree
-[Correspondence: wangfeiqi@kuicr.kyoto-u.ac.jp];
+[Correspondence: wangfeiqi@kuicr.kyoto-u.ac.jp]  
 **planeGraph2tree** is a software tool for identifying the topological centoroid of an input plane graph and 
 transforming the plane graph to a tree structure. 
 Its algorithm is based on **PEELING** procedure devised in [Akutsu et al.](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=2ahUKEwjB9MerkNLmAhVvwYsBHfXYBRgQFjAAegQIBBAC&url=https%3A%2F%2Fpdfs.semanticscholar.org%2Fb1e3%2F2a2a09194bf29b04be0560a00519148f9bbc.pdf&usg=AOvVaw1O6k0sjacG7LcEvX_MwQdr) and can be applied to comparson of pseudoknotted RNA secondary structures [Wang et al.](https://www.liebertpub.com/doi/abs/10.1089/cmb.2019.0512).
