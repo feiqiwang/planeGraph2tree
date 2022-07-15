@@ -63,7 +63,9 @@ Graph_DCEL::~Graph_DCEL()
 /*--------------Build the graph------------------------*/
 int Graph_DCEL::buildGraph(string ver_path, string edge_path, string face_path)
 {
-	this->graphName = ver_path.substr(0, ver_path.find_first_of("_"));
+	// finds the index where the substring "_ver.txt" begins
+	int ver_start_index = ver_path.find("_ver.txt");
+	this->graphName = ver_path.substr(0, ver_start_index);
 	cout << "The graph is " << graphName << endl;
 	/*Graph builder*/
 	readVer("./DCEL/"+ver_path);
